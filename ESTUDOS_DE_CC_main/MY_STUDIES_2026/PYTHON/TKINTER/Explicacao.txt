@@ -1,1 +1,9 @@
-https://onecompiler.com/python
+https://onecompiler.com/tkinter
+
+O **Tkinter** é a biblioteca padrão do Python para criar **interfaces gráficas** (janelas, botões, caixas de texto, menus, etc.).
+
+Em resumo:
+
+* **Para que serve:** Permite transformar programas de texto (que rodam só no terminal) em aplicativos com janelas visuais para o usuário interagir com o mouse e o teclado.
+* **Vantagens:** Já vem embutido no Python (você não precisa instalar nada separado) e é leve e fácil de aprender.
+* **Como funciona:** Você cria uma janela principal (`tk.Tk()`), adiciona os componentes (como botões e rótulos) e inicia o loop da aplicação (`root.mainloop()`) para mantê-la aberta.
