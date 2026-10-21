@@ -1,0 +1,111 @@
+================================================================================
+GUIA DE GRAFOS EM C++: CONCEITOS, REPRESENTAÇÃO, BFS E EXERCÍCIOS
+================================================================================
+
+Um grafo é uma estrutura de dados não linear composta por um conjunto de vértices 
+(nós) e arestas (conexões entre os vértices).
+
+
+1. CONCEITOS FUNDAMENTAIS
+--------------------------------------------------------------------------------
+- Vértice (V): Representa entidades ou pontos (ex: cidades, pessoas).
+- Aresta (E): Representa a relação ou caminho entre dois vértices.
+- Direcionado vs. Não Direcionado: No não direcionado, as arestas funcionam como 
+  vias de mão dupla. No direcionado (dígrafo), possuem sentido único (A -> B).
+- Ponderado vs. Não Ponderado: As arestas podem ter pesos associados (ex: custo).
+
+
+2. REPRESENTAÇÃO EM C++
+--------------------------------------------------------------------------------
+A forma mais eficiente e comum de representar grafos em programação competitiva 
+e sistemas é a Lista de Adjacência usando std::vector.
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    int n_vertices = 5;
+    vector<vector<int>> adj(n_vertices);
+
+    // Adicionando arestas (grafo não direcionado)
+    adj[0].push_back(1);
+    adj[1].push_back(0);
+    
+    adj[0].push_back(4);
+    adj[4].push_back(0);
+
+    adj[1].push_back(2);
+    adj[2].push_back(1);
+
+    return 0;
+}
+
+
+3. EXEMPLO PRÁTICO: BUSCA EM LARGURA (BFS)
+--------------------------------------------------------------------------------
+A BFS (Breadth-First Search) explora o grafo nível por nível, ideal para 
+encontrar o menor caminho em grafos não ponderados.
+
+#include <iostream>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+void bfs(int inicio, const vector<vector<int>>& adj) {
+    int n = adj.size();
+    vector<bool> visitado(n, false);
+    queue<int> fila;
+
+    visitado[inicio] = true;
+    fila.push(inicio);
+
+    cout << "Ordem de visitacao (BFS): ";
+    while (!fila.empty()) {
+        int atual = fila.front();
+        fila.pop();
+        cout << atual << " ";
+
+        for (int vizinho : adj[atual]) {
+            if (!visitado[vizinho]) {
+                visitado[vizinho] = true;
+                fila.push(vizinho);
+            }
+        }
+    }
+    cout << endl;
+}
+
+int main() {
+    // Grafo com 5 vértices (0 a 4)
+    vector<vector<int>> adj = {
+        {1, 2},    // 0 conecta com 1 e 2
+        {0, 3, 4}, // 1 conecta com 0, 3 e 4
+        {0},       // 2 conecta com 0
+        {1},       // 3 conecta com 1
+        {1}        // 4 conecta com 1
+    };
+
+    bfs(0, adj); // Inicia a busca no vértice 0
+    return 0;
+}
+
+
+4. EXERCÍCIOS PRÁTICOS
+--------------------------------------------------------------------------------
+Dica: Tente resolver os problemas abaixo usando C++ e listas de adjacência.
+
+* Exercício 1: Grau dos Vértices
+  - Enunciado: Dado um grafo não direcionado com N vértices e M arestas, escreva 
+    um programa em C++ que leia o grafo e imprima o grau (número de conexões) 
+    de cada vértice.
+  - Objetivo: Praticar a leitura de entradas e a construção da lista.
+
+* Exercício 2: Verificador de Caminho
+  - Enunciado: Implemente uma função em C++ utilizando DFS ou BFS que receba 
+    dois vértices, A e B, e retorne true se existir um caminho entre A e B, 
+    ou false caso contrário.
+  - Objetivo: Fixar o conceito de travessia e marcação de visitados.
+================================================================================
